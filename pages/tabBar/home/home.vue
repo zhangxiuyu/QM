@@ -117,7 +117,7 @@
 var ttt = 0;
 //高德SDK
 import amap from '@/common/SDK/amap-wx.js';
-import http from '@/pages/tabBar/home/api.js'
+import *as http from '@/pages/tabBar/home/api.js'
 export default {
 	data() {
 		return {
@@ -251,7 +251,7 @@ export default {
 				goods_id: goods_id,
 				img:
 					'/static/img/goods/p' + (goods_id % 10 == 0 ? 10 : goods_id % 10) + '.jpg',
-				name: '商品名称商品名称商品名称商品名称商品名称',
+				name: '商品1名称商品名称商品名称商品名称商品名称',
 				price: '￥168',
 				slogan: '1235人付款'
 			};
@@ -290,12 +290,12 @@ export default {
 		var data_data = {
 			'test':1123
 		}
-		http.getData(data_data).then(res => {
+		
+		// 获取首页-banner图和对应的小图标数据集合 
+		http.getDataStr(data_data).then(res => {
 			console.log(111111)
-			resolve(res)
 		}).catch(err => {
-				console.log(222222)
-			reject(err)
+			console.log(222222)
 		})
 		
 		

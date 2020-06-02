@@ -1,5 +1,6 @@
 import * as http from '../../../utils/service.js'
-const getData = (data) =>{
+
+const getDataStr = (data) =>{
 	return new Promise((resolve,reject)=>{
 		http.get('trainDetail',data).then(res => {
 			resolve(res)
@@ -9,5 +10,5 @@ const getData = (data) =>{
 	})
 }
 export{
-	getData
+	getDataStr
 }
