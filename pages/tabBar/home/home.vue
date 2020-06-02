@@ -117,6 +117,7 @@
 var ttt = 0;
 //高德SDK
 import amap from '@/common/SDK/amap-wx.js';
+import http from '@/pages/tabBar/home/api.js'
 export default {
 	data() {
 		return {
@@ -272,17 +273,33 @@ export default {
 		// #endif
 		this.amapPlugin = new amap.AMapWX({
 			//高德地图KEY，随时失效，请务必替换为自己的KEY，参考：http://ask.dcloud.net.cn/article/35070
-			key: '7c235a9ac4e25e482614c6b8eac6fd8e'
+			key: 'a5afbea5439aa0a1a2d60a813b2bca87'
 		});
-		//定位地址
+		//定位地址 
 		this.amapPlugin.getRegeo({
-			success: data => {
-				this.city = data[0].regeocodeData.addressComponent.city.replace(/市/g, ''); //把"市"去掉
+			success: (data) => {
+				this.city = data[0].regeocodeData.addressComponent.province.replace(/市/g, ''); //把"市"去掉
+	
 				// #ifdef APP-PLUS
 				this.nVueTitle.postMessage({type: 'location',city:this.city});
 				// #endif
 			}
 		});
+		
+		this.swiperList=[{ id: 1, src: 'url1', img: '/static/img/1.jpg' }]
+		var data_data = {
+			'test':1123
+		}
+		http.getData(data_data).then(res => {
+			console.log(111111)
+			resolve(res)
+		}).catch(err => {
+				console.log(222222)
+			reject(err)
+		})
+		
+		
+		
 		//开启定时器
 		this.Timer();
 		//加载活动专区
