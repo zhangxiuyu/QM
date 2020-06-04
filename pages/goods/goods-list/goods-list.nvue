@@ -42,9 +42,9 @@ export default {
 			loadinging: false,
 			loadingText:'上拉加载',
 			orderbyList: [
-				{ text: '销量', selected: true, orderbyicon: false, orderby: 0 },
+				{ text: '热门', selected: true, orderbyicon: false, orderby: 0 },
 				{ text: '价格', selected: false, orderbyicon: ['\ue737', '\ue736'], orderby: 0 },
-				{ text: '好评', selected: false, orderbyicon: false, orderby: 0 }
+				{ text: '', selected: false, orderbyicon: false, orderby: 0 }
 			],
 			goodsList: [
 				{

@@ -6,7 +6,7 @@
 		<view v-if="showHeader" class="header" :style="{ position: headerPosition,top:headerTop,opacity: afterHeaderOpacity }">
 			<!-- 定位城市 -->
 			<view class="addr">
-				<view class="icon location" style="color: pink;"></view>
+				<view class="icon location" style="color:orange;"></view>
 				{{ city }}
 			</view>
 			<!-- 搜索框 -->
@@ -53,7 +53,7 @@
 				@tap="toCategory(row)"
 			>
 				<view class="img"><image :src="row.img"></image></view>
-				<view class="text" style="color: pink;">{{ row.name }}</view>
+				<view class="text" style="color: orange;">{{ row.name }}</view>
 			</view>
 		</view>
 		<!-- 广告图 -->
@@ -88,9 +88,9 @@
 		</view> -->
 		<!-- 商品列表 -->
 		<view class="goods-list">
-			<view class="title" style="color: pink;">
+			<view class="title" style="color: orange;">
 				<image src="/static/img/hua.png"></image>
-				漫漫推荐
+				秀秀推荐
 				<image src="/static/img/hua.png"></image>
 			</view>
 			<view class="product-list">
@@ -131,94 +131,94 @@ export default {
 			currentSwiper: 0,
 			// 轮播图片
 			swiperList: [
-				{ id: 1, src: 'url1', img: '/static/img/1.jpg' },
-				{ id: 2, src: 'url2', img: '/static/img/2.jpg' },
-				{ id: 3, src: 'url3', img: '/static/img/3.jpg' }
+				// { id: 1, src: 'url1', img: '/static/img/1.jpg' },
+				// { id: 2, src: 'url2', img: '/static/img/2.jpg' },
+				// { id: 3, src: 'url3', img: '/static/img/3.jpg' }
 			],
 			// 分类菜单
 			categoryList: [
-				{ id: 1, name: '国漫', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
-				{ id: 2, name: '日漫', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
-				{ id: 3, name: '女生', img: 'https://cbu01.alicdn.com/img/ibank/2018/233/023/9267320332_1731467748.jpg' },
-				{ id: 4, name: '汉子', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
-				{ id: 5, name: 'Q版', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
-				{ id: 6, name: '18+', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
-				{ id: 7, name: '猫控', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
-				{ id: 8, name: '都有', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' }
+				// { id: 1, name: '国漫', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
+				// { id: 2, name: '日漫', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
+				// { id: 3, name: '女生', img: 'https://cbu01.alicdn.com/img/ibank/2018/233/023/9267320332_1731467748.jpg' },
+				// { id: 4, name: '汉子', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
+				// { id: 5, name: 'Q版', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
+				// { id: 6, name: '18+', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
+				// { id: 7, name: '猫控', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' },
+				// { id: 8, name: '都有', img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg' }
 			],
 			Promotion: [],
 			//猜你喜欢列表
 			productList: [
-				{
-					goods_id: 0,
-					img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 1,
-					img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 2,
-					img: '/static/img/goods/p3.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 3,
-					img: '/static/img/goods/p4.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 4,
-					img: '/static/img/goods/p5.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 5,
-					img: '/static/img/goods/p6.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 6,
-					img: '/static/img/goods/p7.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 7,
-					img: '/static/img/goods/p8.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 8,
-					img: '/static/img/goods/p9.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				},
-				{
-					goods_id: 9,
-					img: '/static/img/goods/p10.jpg',
-					name: '商品名称商品名称商品名称商品名称商品名称',
-					price: '￥168',
-					slogan: '1235人付款'
-				}
+				// {
+				// 	goods_id: 0,
+				// 	img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 1,
+				// 	img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 2,
+				// 	img: '/static/img/goods/p3.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 3,
+				// 	img: '/static/img/goods/p4.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 4,
+				// 	img: '/static/img/goods/p5.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 5,
+				// 	img: '/static/img/goods/p6.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 6,
+				// 	img: '/static/img/goods/p7.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 7,
+				// 	img: '/static/img/goods/p8.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 8,
+				// 	img: '/static/img/goods/p9.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// },
+				// {
+				// 	goods_id: 9,
+				// 	img: '/static/img/goods/p10.jpg',
+				// 	name: '商品名称商品名称商品名称商品名称商品名称',
+				// 	price: '￥168',
+				// 	slogan: '1235人付款'
+				// }
 			],
 			loadingText: '正在加载...'
 		};
@@ -238,6 +238,9 @@ export default {
 	//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 	onReachBottom() {
 		// uni.showToast({ title: '触发上拉加载' });
+		this.loadingText = '到底了';
+		return false;
+		
 		let len = this.productList.length;
 		if (len >= 40) {
 			this.loadingText = '到底了';
@@ -280,25 +283,65 @@ export default {
 			success: (data) => {
 				this.city = data[0].regeocodeData.addressComponent.province.replace(/市/g, ''); //把"市"去掉
 	
+				// 这里放到缓存里面 只在首页获取一次
+				 uni.setStorage({
+				     key: 'city',
+				     data: this.city,
+				     success: function () {
+				         console.log('success city');
+				     }
+				 });
+	
+	
 				// #ifdef APP-PLUS
 				this.nVueTitle.postMessage({type: 'location',city:this.city});
 				// #endif
 			}
 		});
 		
-		this.swiperList=[{ id: 1, src: 'url1', img: '/static/img/1.jpg' }]
-		var data_data = {
-			'test':1123
-		}
+		// this.swiperList=[{ id: 1, src: 'url1', img: '/static/img/1.jpg' }]
+		// console.log((this.swiperList))
 		
-		// 获取首页-banner图和对应的小图标数据集合 
-		http.getDataStr(data_data).then(res => {
-			console.log(111111)
+		var bannerlist=[];
+		var i=0;
+		// 获取首页-banner图
+		http.getBanner().then(res => {
+			res.map(x=>{
+				i++;
+				bannerlist.push({'id':i,'src':'','img':x.img});			
+			})
 		}).catch(err => {
 			console.log(222222)
 		})
+		this.swiperList = bannerlist;
 		
+
+		// 和对应的小图标数据集合 
+		var j = 0;
+		http.getXiao().then(res => {
+			res.map(x=>{
+				j++;
+				this.categoryList.push({'id':j,'name':x.name,'img':x.img});
+			})
+		}).catch(err => {
+			console.log(3333)
+		})
 		
+		// 商品
+		http.getGoods().then(res => {
+			res.map(x=>{
+				this.productList.push({'goods_id':x.id,'name':x.name,'img':x.img,'price':x.prices,'slogan':''});
+			})
+		}).catch(err => {
+			console.log(444)
+		})
+		
+		// 	goods_id: 7,
+		// 	img: '/static/img/goods/p8.jpg',
+		// 	name: '商品名称商品名称商品名称商品名称商品名称',
+		// 	price: '￥168',
+		// 	slogan: '1235人付款'
+		// }
 		
 		//开启定时器
 		this.Timer();
@@ -403,11 +446,11 @@ export default {
 		},
 		//搜索跳转
 		toSearch() {
-			uni.showToast({ title: '建议跳转到新页面做搜索功能' });
+			uni.showToast({ title: '秀秀还没开发呢，不要着急哦！' ,icon:"none"});
 		},
 		//轮播图跳转
 		toSwiper(e) {
-			uni.showToast({ title: e.src, icon: 'none' });
+			//uni.showToast({ title: e.src, icon: 'none' });
 		},
 		//分类跳转
 		toCategory(e) {
@@ -425,7 +468,7 @@ export default {
 		toGoods(e) {
 			uni.showToast({ title: '商品' + e.goods_id, icon: 'none' });
 			uni.navigateTo({
-				url: '../../goods/goods'
+				url: '../../goods/goods?cid=' + e.goods_id
 			});
 		},
 		//轮播图指示器

@@ -7,8 +7,10 @@
 				<view class="back"><view class="icon xiangqian" @tap="back" v-if="showBack"></view></view> 
 				<view class="middle"></view>
 				<view class="icon-btn">
-					<view class="icon tongzhi" @tap="toMsg"></view>
-					<view class="icon cart" @tap="joinCart"></view>
+					<!-- <view class="icon tongzhi" @tap="toMsg"></view> -->
+					<!-- <view class="icon cart" @tap="joinCart"></view> -->
+						<view class="icon kefu"></view>
+						<view class="icon kefu"></view>
 				</view>
 			</view>
 			<!-- 头部-滚动渐变显示 -->
@@ -18,32 +20,33 @@
 					<view v-for="(anchor,index) in anchorlist" :class="[selectAnchor==index ?'on':'']" :key="index" @tap="toAnchor(index)">{{anchor.name}}</view>
 				</view>
 				<view class="icon-btn">
-					<view class="icon tongzhi" @tap="toMsg"></view>
-					<view class="icon cart" @tap="joinCart"></view>
+					<view class="icon kefu"></view>
+					<!-- <view class="icon tongzhi" @tap="toMsg"></view>
+					<view class="icon cart" @tap="joinCart"></view> -->
 				</view>
 			</view>
 		</view>
 		<!-- 底部菜单 -->
-		<view class="footer">
-			<view class="icons">
-				<view class="box" @tap="share">
+		<!-- <view class="footer"> -->
+			<!-- <view class="icons"> -->
+			<!-- 	<view class="box" @tap="share">
 					<view class="icon fenxiang"></view>
 					<view class="text">分享</view>
 				</view>
 				<view class="box" @tap="toChat">
 					<view class="icon kefu"></view>
 					<view class="text">客服</view>
-				</view>
-				<view class="box" @tap="keep">
+				</view> -->
+				<!-- <view class="box" @tap="keep">
 					<view class="icon" :class="[isKeep?'shoucangsel':'shoucang']"></view>
 					<view class="text">{{isKeep?'已':''}}收藏</view>
-				</view>
-			</view>
-			<view class="btn">
+				</view> -->
+			<!-- </view> -->
+			<!-- <view class="btn">
 				<view class="joinCart" @tap="joinCart">加入购物车</view>
 				<view class="buy" @tap="buy">立即购买</view>
-			</view>
-		</view>
+			</view> -->
+		<!-- </view> -->
 		<!-- share弹窗 -->
 		<view class="share" :class="shareClass" @touchmove.stop.prevent="discard" @tap="hideShare">
 			<view class="mask"></view>
@@ -62,7 +65,7 @@
 							朋友圈
 						</view>
 					</view>
-					<view class="box">
+				<!-- 	<view class="box">
 						<image src="../../static/img/share/wb.png"></image>
 						<view class="title">
 							新浪微博
@@ -73,7 +76,7 @@
 						<view class="title">
 							QQ
 						</view>
-					</view>
+					</view> -->
 				</view>
 				<view class="btn" @tap="hideShare">
 					取消
@@ -140,13 +143,13 @@
 			</view>
 		</view>
 		<!-- 服务-规则选择 -->
-		<view class="info-box spec">
-			<view class="row" @tap="showService">
+		<!-- <view class="info-box spec"> -->
+		<!-- 	<view class="row" @tap="showService">
 				<view class="text">服务</view>
 				<view class="content"><view class="serviceitem" v-for="(item,index) in goodsData.service" :key="index">{{item.name}}</view></view>
 				<view class="arrow"><view class="icon xiangyou"></view></view>
-			</view>
-			<view class="row" @tap="showSpec(false)">
+			</view> -->
+	<!-- 		<view class="row" @tap="showSpec(false)">
 				<view class="text">选择</view>
 				<view class="content">
 					<view>选择规格：</view>
@@ -156,10 +159,10 @@
 					
 				</view>
 				<view class="arrow"><view class="icon xiangyou"></view></view>
-			</view>
-		</view>
+			</view> -->
+		<!-- </view> -->
 		<!-- 评价 -->
-		<view class="info-box comments" id="comments">
+	<!-- 	<view class="info-box comments" id="comments">
 			<view class="row">
 				<view class="text">商品评价({{goodsData.comment.number}})</view>
 				<view class="arrow" @tap="toRatings">
@@ -178,7 +181,7 @@
 					{{goodsData.comment.content}}
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 详情 -->
 		<view class="description">
 			<view class="title">———— 商品详情 ————</view>
@@ -188,6 +191,7 @@
 </template>
 
 <script>
+	import *as http from "@/pages/goods/api.js"
 export default {
 	data() {
 		return {
@@ -202,10 +206,10 @@ export default {
 			// #endif
 			//轮播主图数据
 			swiperList: [
-				{ id: 1, img: 'https://ae01.alicdn.com/kf/HTB1Mj7iTmzqK1RjSZFjq6zlCFXaP.jpg' },
-				{ id: 2, img: 'https://ae01.alicdn.com/kf/HTB1fbseTmzqK1RjSZFLq6An2XXaL.jpg' },
-				{ id: 3, img: 'https://ae01.alicdn.com/kf/HTB1dPUMThnaK1RjSZFtq6zC2VXa0.jpg' },
-				{ id: 4, img: 'https://ae01.alicdn.com/kf/HTB1OHZrTXzqK1RjSZFvq6AB7VXaw.jpg' }
+				// { id: 1, img: 'https://ae01.alicdn.com/kf/HTB1Mj7iTmzqK1RjSZFjq6zlCFXaP.jpg' },
+				// { id: 2, img: 'https://ae01.alicdn.com/kf/HTB1fbseTmzqK1RjSZFLq6An2XXaL.jpg' },
+				// { id: 3, img: 'https://ae01.alicdn.com/kf/HTB1dPUMThnaK1RjSZFtq6zC2VXa0.jpg' },
+				// { id: 4, img: 'https://ae01.alicdn.com/kf/HTB1OHZrTXzqK1RjSZFvq6AB7VXaw.jpg' }
 			],
 			//轮播图下标
 			currentSwiper: 0,
@@ -217,8 +221,8 @@ export default {
 			// 商品信息
 			goodsData:{
 				id:1,
-				name:"商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题商品标题",
-				price:"127.00",
+				name:"",
+				price:"",
 				number:1,
 				service:[
 					{name:"正品保证",description:"此商品官方保证为正品"},
@@ -236,7 +240,7 @@ export default {
 			selectSpec:null,//选中规格
 			isKeep:false,//收藏
 			//商品描述html
-			descriptionStr:'<div style="text-align:center;"><img width="100%" src="https://ae01.alicdn.com/kf/HTB1t0fUl_Zmx1VjSZFGq6yx2XXa5.jpg"/><img width="100%" src="https://ae01.alicdn.com/kf/HTB1LzkjThTpK1RjSZFKq6y2wXXaT.jpg"/><img width="100%" src="https://ae01.alicdn.com/kf/HTB18dkiTbvpK1RjSZPiq6zmwXXa8.jpg"/></div>'
+			descriptionStr:''
 		};
 	},
 	onLoad(option) {
@@ -246,6 +250,25 @@ export default {
 		// #endif
 		//option为object类型，会序列化上个页面传递的参数
 		console.log(option.cid); //打印出上个页面传递的参数。
+		
+		
+		/// 请求接口
+		http.getGoodsOne({
+			'goods_id':option.cid
+		}).then(res => {
+			// res.map(x=>{
+			// 	this.productList.push({'goods_id':x.id,'name':x.name,'img':x.img,'price':x.prices,'slogan':''});
+			// })
+			this.swiperList = res.img;
+			this.goodsData.name = res.name;
+			this.goodsData.price = res.prices;
+			this.goodsData.descriptionStr = res.div;
+		
+		}).catch(err => {
+			console.log(444)
+		})
+		
+		
 	},
 	onReady(){
 		this.calcAnchor();//计算锚点高度，页面数据是ajax加载时，请把此行放在数据渲染完成事件中执行以保证高度计算正确
@@ -367,7 +390,7 @@ export default {
 		calcAnchor(){
 			this.anchorlist=[
 				{name:'主图',top:0},
-				{name:'评价',top:0},
+				{name:'',top:0},
 				{name:'详情',top:0}
 			]
 			let commentsView = uni.createSelectorQuery().select("#comments");

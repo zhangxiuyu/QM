@@ -1,4 +1,4 @@
-let baseUrl = 'http://api.zixinco.com/api/train/'
+let baseUrl = 'http://www.lqy.com/api/'
 import {
 	token
 } from './globalData.js'

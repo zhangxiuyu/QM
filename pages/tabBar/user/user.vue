@@ -7,8 +7,9 @@
 				
 			</view>
 			<view class="icon-btn">
-				<view class="icon tongzhi" @tap="toMsg"></view>
-				<view class="icon setting" @tap="toSetting"></view>
+				<!-- <view class="icon tongzhi" @tap="toMsg"></view> -->
+				<view></view>
+				<!-- <view class="icon setting" @tap="toSetting"></view> -->
 			</view>
 		</view>
 		<!-- 占位 -->
@@ -22,34 +23,34 @@
 			<!-- 昵称,个性签名 -->
 			<view class="right">
 				<view class="username" @tap="toLogin">{{user.username}}</view>
-				<view class="signature" @tap="toSetting">{{user.signature}}</view>
+				<!-- <view class="signature" @tap="toSetting">{{user.signature}}</view> -->
 			</view>
 			<!-- 二维码按钮 -->
-			<view class="erweima" @tap="toMyQR">
+			<!-- <view class="erweima" @tap="toMyQR">
 				<view class="icon qr"></view>
-			</view>
+			</view> -->
 		</view>
 		<!-- VIP banner -->
-		<view class="VIP">
+		<!-- <view class="VIP">
 			<view class="img">
 				<image src="/static/img/VIP.png"></image>
 			</view>
 			<view class="title">开通VIP会员</view>
 			<view class="tis">会员特权</view>
-		</view>
+		</view> -->
 		<!-- 订单-余额 -->
-		<view class="order">
+		<!-- <view class="order"> -->
 			<!-- 订单类型 -->
-			<view class="list">
+<!-- 			<view class="list">
 				<view class="box" v-for="(row,index) in orderList" :key="index" @tap="toOrderList(index)">
 					<view class="img">
 						<view class="icon" :class="row.icon"></view>
 					</view>
 					<view class="text">{{row.text}}</view>
 				</view>
-			</view>
+			</view> -->
 			<!-- 余额 -->
-			<view class="balance-info">
+			<!-- <view class="balance-info">
 				<view class="left">
 					<view class="box">
 						<view class="num">{{user.integral}}</view>
@@ -73,9 +74,9 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 工具栏 -->
-		<view class="toolbar">
+	<!-- 	<view class="toolbar">
 			<view class="title">我的工具栏</view>
 			<view class="list">
 				<view class="box" v-for="(row,index) in mytoolbarList" :key="index" @tap="toPage(row.url)">
@@ -85,7 +86,7 @@
 					<view class="text">{{row.text}}</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 占位 -->
 		<view class="place-bottom"></view>
 	</view>
@@ -119,15 +120,15 @@
 				],
 				// 工具栏列表
 				mytoolbarList:[
-					{url:'../../user/keep/keep',text:'我的收藏',img:'/static/img/user/point.png'},
-					{url:'../../user/coupon/coupon',text:'优惠券',img:'/static/img/user/quan.png'}, 
-					{url:'',text:'新客豪礼',img:'/static/img/user/renw.png'},
-					{url:'',text:'领红包',img:'/static/img/user/momey.png'},
+					// {url:'../../user/keep/keep',text:'我的收藏',img:'/static/img/user/point.png'},
+					// {url:'../../user/coupon/coupon',text:'优惠券',img:'/static/img/user/quan.png'}, 
+					// {url:'',text:'新客豪礼',img:'/static/img/user/renw.png'},
+					// {url:'',text:'领红包',img:'/static/img/user/momey.png'},
 					
-					{url:'../../user/address/address',text:'收货地址',img:'/static/img/user/addr.png'},
-					{url:'',text:'账户安全',img:'/static/img/user/security.png'},
-					{url:'',text:'银行卡',img:'/static/img/user/bank.png'},
-					{url:'',text:'抽奖',img:'/static/img/user/choujiang.png'},
+					// {url:'../../user/address/address',text:'收货地址',img:'/static/img/user/addr.png'},
+					// {url:'',text:'账户安全',img:'/static/img/user/security.png'},
+					// {url:'',text:'银行卡',img:'/static/img/user/bank.png'},
+					// {url:'',text:'抽奖',img:'/static/img/user/choujiang.png'},
 					// {text:'客服',img:'/static/img/user/kefu.png'},
 					// {text:'签到',img:'/static/img/user/mingxi.png'}
 					
@@ -152,6 +153,39 @@
 			this.showHeader = false;
 			this.statusHeight = plus.navigator.getStatusbarHeight();
 			// #endif
+			
+			
+			uni.login({
+			  provider: 'weixin',
+			  success: function (loginRes) {
+			    console.log(loginRes.authResult);
+			    // 获取用户信息
+			    uni.getUserInfo({
+			      provider: 'weixin',
+			      success: function (infoRes) {
+			        console.log(infoRes.userInfo);
+					uni.setStorage({
+						key: 'wx_user',
+						data: infoRes.userInfo,
+						success: function () {
+							console.log('success wx_user');
+				    }
+				});
+			      }
+			    });
+			  }
+			});
+			const wx_user = uni.getStorageSync('wx_user');
+				console.log(132);
+			console.log(wx_user);
+			this.user = {
+				username:wx_user.nickName,
+				face:wx_user.avatarUrl,
+				signature:'点击昵称跳转登录/注册页',
+				integral:0,
+				balance:0,
+				envelope:0
+			}
 		},
 		onReady(){
 			//此处，演示,每次页面初次渲染都把登录状态重置
@@ -203,11 +237,13 @@
 				})
 			},
 			toLogin(){
-				uni.showToast({title: '请登录',icon:"none"});
-				uni.navigateTo({
-					url:'../../login/login'
-				})
-				this.isfirst = false;
+				// uni.showToast({title: '请登录',icon:"none"});
+				// uni.navigateTo({
+				// 	url:'../../login/login'
+				// })
+				// this.isfirst = false;
+				
+				
 			},
 			isLogin(){
 				//实际应用中,用户登录状态应该用token等方法去维持登录状态.
