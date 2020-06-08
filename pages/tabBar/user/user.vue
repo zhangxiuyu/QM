@@ -18,7 +18,8 @@
 		<view class="user">
 			<!-- 头像 -->
 			<view class="left">
-				<image :src="user.face" @tap="toSetting"></image>
+				<!-- <image :src="user.face" @tap="toSetting"></image> -->
+				<image :src="user.face" ></image>
 			</view>
 			<!-- 昵称,个性签名 -->
 			<view class="right">
