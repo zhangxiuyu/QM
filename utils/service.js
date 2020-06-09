@@ -1,4 +1,5 @@
-let baseUrl = 'http://www.lqy.com/api/'
+// let baseUrl = 'http://www.lqy.com/api/'
+let baseUrl = 'https://www.ergouphp.com/api/'
 import {
 	token
 } from './globalData.js'

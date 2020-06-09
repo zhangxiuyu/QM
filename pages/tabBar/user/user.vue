@@ -88,6 +88,12 @@
 				</view>
 			</view>
 		</view> -->
+		<view class="toolbar">
+				<view class="title">我的工具栏</view>
+				<view class="list">
+					<button type="primary" size='mini' open-type='contact'>联系秀秀</button>
+				</view>
+			</view>
 		<!-- 占位 -->
 		<view class="place-bottom"></view>
 	</view>
