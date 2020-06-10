@@ -9,8 +9,8 @@
 				<view class="icon-btn">
 					<!-- <view class="icon tongzhi" @tap="toMsg"></view> -->
 					<!-- <view class="icon cart" @tap="joinCart"></view> -->
-						<view class="icon kefu"></view>
-						<view class="icon kefu"></view>
+						<!-- <view class="icon kefu"></view> -->
+						<!-- <view class="icon kefu"></view> -->
 				</view>
 			</view>
 			<!-- 头部-滚动渐变显示 -->
@@ -137,7 +137,7 @@
 		</view>
 		<!-- 标题 价格 -->
 		<view class="info-box goods-info">
-			<view class="price">￥{{goodsData.price}}</view>
+			<!-- <view class="price">￥{{goodsData.price}}</view> -->
 			<view class="title">
 				{{goodsData.name}}
 			</view>

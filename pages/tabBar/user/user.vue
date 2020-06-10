@@ -25,6 +25,7 @@
 			<view class="right">
 				<view class="username" @tap="toLogin">{{user.username}}</view>
 				<!-- <view class="signature" @tap="toSetting">{{user.signature}}</view> -->
+				<button size='mini' class="sys_btn" open-type="getUserInfo" lang="zh_CN" @getuserinfo="appLoginWx">{{user.username != "" && user.username != undefined ? "" : "登录"}}</button>
 			</view>
 			<!-- 二维码按钮 -->
 			<!-- <view class="erweima" @tap="toMyQR">
@@ -99,7 +100,7 @@
 	</view>
 </template>
 <script>
-
+import *as http from "@/pages/tabBar/user/api.js"
 	export default {
 		data() {
 			return {
@@ -110,7 +111,7 @@
 				showHeader:true,
 				//个人信息,
 				user:{
-					username:'游客1002',
+					username:'',
 					face:'/static/img/face.jpg',
 					signature:'点击昵称跳转登录/注册页',
 					integral:0,
@@ -161,38 +162,18 @@
 			this.statusHeight = plus.navigator.getStatusbarHeight();
 			// #endif
 			
-			
-			uni.login({
-			  provider: 'weixin',
-			  success: function (loginRes) {
-			    console.log(loginRes.authResult);
-			    // 获取用户信息
-			    uni.getUserInfo({
-			      provider: 'weixin',
-			      success: function (infoRes) {
-			        console.log(infoRes.userInfo);
-					uni.setStorage({
-						key: 'wx_user',
-						data: infoRes.userInfo,
-						success: function () {
-							console.log('success wx_user');
-				    }
-				});
-			      }
-			    });
-			  }
-			});
-			const wx_user = uni.getStorageSync('wx_user');
-				console.log(132);
-			console.log(wx_user);
-			this.user = {
-				username:wx_user.nickName,
-				face:wx_user.avatarUrl,
-				signature:'点击昵称跳转登录/注册页',
-				integral:0,
-				balance:0,
-				envelope:0
-			}
+			// const that = this;
+			// uni.getStorage({
+			//     key: 'userInfo',
+			//     success: function (res) {
+			//         console.log(res.data);
+			// 		that.user = {
+			// 			username:res.data.nickName,
+			// 			face:res.data.avatarUrl
+			// 		}
+			//     }
+			// });
+
 		},
 		onReady(){
 			//此处，演示,每次页面初次渲染都把登录状态重置
@@ -272,6 +253,69 @@
 				uni.navigateTo({
 					url:url
 				})
+			},
+			 appLoginWx(){
+			// #ifdef MP-WEIXIN
+			
+				const _self = this;
+				uni.getProvider({
+				  service: 'oauth',
+				  success: function (res) {
+					// if (res.provider.indexOf('weixin')) {
+						uni.login({
+							provider: 'weixin',
+							success: (res) => {
+								_self.authorization = res.code;
+								uni.getUserInfo({
+									provider: 'weixin',
+									success: (info) => {
+										console.log(1233);
+										console.log(res);
+										console.log(info);
+										_self.user = {
+											username:info.userInfo.nickName,
+											face:info.userInfo.avatarUrl
+										}
+										
+										// 将用户信息放到缓存中
+										uni.setStorage({
+										    key: 'userInfo',
+										    data: info.userInfo,
+										    success: function () {
+										        console.log('user 写入');
+										    }
+										});
+										//这里请求接口 这里向服务端 写入用户，并返回 token
+										http.userCode({
+											code:res.code
+										}).then(res => {
+											console.log(1111)
+											console.log()
+										}).catch(err => {
+											console.log(3333)
+										})
+										
+									},
+									fail: () => {
+										uni.showToast({title:"微信登录授权失败",icon:"none"});
+									}
+								})
+						
+							},
+							fail: () => {
+								uni.showToast({title:"微信登录授权失败",icon:"none"});
+							}
+						})
+						
+					// }else{
+					// 	uni.showToast({
+					// 		title: '请先安装微信或升级版本',
+					// 		icon:"none"
+					// 	});
+					// }
+				  }
+				});
+				//#endif
 			}
 		}
 	} 

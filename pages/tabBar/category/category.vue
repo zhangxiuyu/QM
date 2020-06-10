@@ -8,9 +8,9 @@
 				<input placeholder="默认关键字" placeholder-style="color:#c0c0c0;" @tap="toSearch()"/>
 				<view class="icon search"></view>
 			</view>
-			<view class="icon-btn">
+			<!-- <view class="icon-btn">
 				<view class="icon tongzhi" @tap="toMsg"></view>
-			</view>
+			</view> -->
 		</view>
 		<!-- 占位 -->
 		<view class="place"></view>

@@ -103,7 +103,7 @@
 					<image mode="widthFix" :src="product.img"></image>
 					<view class="name">{{ product.name }}</view>
 					<view class="info">
-						<view class="price">{{ product.price }}</view>
+						<!-- <view class="price">{{ product.price }}</view> -->
 						<view class="slogan">{{ product.slogan }}</view>
 					</view>
 				</view>
