@@ -262,7 +262,7 @@ export default {
 			this.swiperList = res.img;
 			this.goodsData.name = res.name;
 			this.goodsData.price = res.prices;
-			this.goodsData.descriptionStr = res.div;
+			this.descriptionStr = res.div;
 		
 		}).catch(err => {
 			console.log(444)
