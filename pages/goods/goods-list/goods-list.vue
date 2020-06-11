@@ -15,7 +15,7 @@
 					<image mode="widthFix" :src="goods.img"></image>
 					<view class="name">{{goods.name}}</view>
 					<view class="info">
-						<view class="price">{{goods.price}}</view>
+						<!-- <view class="price">{{goods.price}}</view> -->
 						<view class="slogan">{{goods.slogan}}</view>
 					</view>
 				</view>
@@ -60,7 +60,8 @@
 			});
 			
 			http.getGoodsList({
-				'type_id':option.cid 
+				'type_id':option.cid,
+				'fid':option.fid == undefined?'':option.fid
 			}).then(res => {
 				console.log(res)
 				this.goodsList = res;

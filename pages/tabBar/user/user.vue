@@ -162,17 +162,17 @@ import *as http from "@/pages/tabBar/user/api.js"
 			this.statusHeight = plus.navigator.getStatusbarHeight();
 			// #endif
 			
-			// const that = this;
-			// uni.getStorage({
-			//     key: 'userInfo',
-			//     success: function (res) {
-			//         console.log(res.data);
-			// 		that.user = {
-			// 			username:res.data.nickName,
-			// 			face:res.data.avatarUrl
-			// 		}
-			//     }
-			// });
+			const that = this;
+			uni.getStorage({
+			    key: 'userInfo',
+			    success: function (res) {
+			        console.log(res.data);
+					that.user = {
+						username:res.data.nickName,
+						face:res.data.avatarUrl
+					}
+			    }
+			});
 
 		},
 		onReady(){
@@ -287,7 +287,9 @@ import *as http from "@/pages/tabBar/user/api.js"
 										});
 										//这里请求接口 这里向服务端 写入用户，并返回 token
 										http.userCode({
-											code:res.code
+											code:res.code,
+											username:info.userInfo.nickName,
+											avatarUrl:info.userInfo.avatarUrl,
 										}).then(res => {
 											console.log(1111)
 											console.log()

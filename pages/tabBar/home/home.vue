@@ -319,9 +319,10 @@ export default {
 		// 和对应的小图标数据集合 
 		var j = 0;
 		http.getXiao().then(res => {
+			console.log(res)
 			res.map(x=>{
 				j++;
-				this.categoryList.push({'id':j,'name':x.name,'img':x.img});
+				this.categoryList.push({'id':x.id,'name':x.name,'img':x.img});
 			})
 		}).catch(err => {
 			console.log(3333)
@@ -457,7 +458,7 @@ export default {
 			//uni.showToast({title: e.name,icon:"none"});
 			uni.setStorageSync('catName',e.name);
 			uni.navigateTo({
-				url: '../../goods/goods-list/goods-list?cid='+e.id+'&name='+e.name
+				url: '../../goods/goods-list/goods-list?cid='+e.id+'&name='+e.name+'&fid='+e.id
 			});
 		},
 		//推荐商品跳转
