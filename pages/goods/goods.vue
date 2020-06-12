@@ -20,7 +20,7 @@
 					<view v-for="(anchor,index) in anchorlist" :class="[selectAnchor==index ?'on':'']" :key="index" @tap="toAnchor(index)">{{anchor.name}}</view>
 				</view>
 				<view class="icon-btn">
-					<view class="icon kefu"></view>
+					<!-- <view class="icon kefu"></view> -->
 					<!-- <view class="icon tongzhi" @tap="toMsg"></view>
 					<view class="icon cart" @tap="joinCart"></view> -->
 				</view>
@@ -184,7 +184,7 @@
 		</view> -->
 		<!-- 详情 -->
 		<view class="description">
-			<view class="title">———— 商品详情 ————</view>
+			<view class="title">———— 详情 ————</view>
 			<view class="content"><rich-text :nodes="descriptionStr"></rich-text></view>
 		</view>
 	</view>
@@ -262,13 +262,37 @@ export default {
 			this.swiperList = res.img;
 			this.goodsData.name = res.name;
 			this.goodsData.price = res.prices;
-			this.descriptionStr = res.div;
+			this.descriptionStr = formatRichText(res.div);
 		
 		}).catch(err => {
 			console.log(444)
-		})
+		});
 		
-		
+		/**
+		 * 处理富文本里的图片宽度自适应
+		 * 1.去掉img标签里的style、width、height属性
+		 * 2.img标签添加style属性：max-width:100%;height:auto
+		 * 3.修改所有style里的width属性为max-width:100%
+		 * 4.去掉<br/>标签
+		 * @param html
+		 * @returns {void|string|*}
+		 */
+		function  formatRichText(html) { 
+			//控制小程序中图片大小
+			var newContent= html.replace(/<img[^>]*>/gi,function(match,capture){
+				match = match.replace(/style="[^"]+"/gi, '').replace(/style='[^']+'/gi, '');
+				match = match.replace(/width="[^"]+"/gi, '').replace(/width='[^']+'/gi, '');
+				match = match.replace(/height="[^"]+"/gi, '').replace(/height='[^']+'/gi, '');
+				return match;
+			});
+			newContent = newContent.replace(/style="[^"]+"/gi,function(match,capture){
+				match = match.replace(/width:[^;]+;/gi, 'max-width:100%;').replace(/width:[^;]+;/gi, 'max-width:100%;');
+				return match;
+			});
+			newContent = newContent.replace(/<br[^>]*\/>/gi, '');
+			newContent = newContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto;display:inline-block;margin:10rpx auto;"');
+			return newContent;
+		}
 	},
 	onReady(){
 		this.calcAnchor();//计算锚点高度，页面数据是ajax加载时，请把此行放在数据渲染完成事件中执行以保证高度计算正确
@@ -287,7 +311,7 @@ export default {
 	},
 	//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 	onReachBottom() {
-		uni.showToast({ title: '触发上拉加载' });
+		uni.showToast({ title: '到底了' });
 	},
 	mounted () {
 		
