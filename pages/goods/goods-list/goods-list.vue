@@ -42,7 +42,7 @@
 					// { goods_id: 8, img: '/static/img/goods/p9.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
 					// { goods_id: 9, img: '/static/img/goods/p10.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' }
 				],
-				loadingText:"正在加载...",
+				loadingText:"到底了",
 				headerTop:"0px",
 				headerPosition:"fixed",
 				orderbyList:[
@@ -108,6 +108,7 @@
 			}else{
 				this.loadingText="正在加载...";
 			}
+			// 这里分页处理  
 			let end_goods_id = this.goodsList[len-1].goods_id;
 			for(let i=1;i<=10;i++){
 				let goods_id = end_goods_id+i;
