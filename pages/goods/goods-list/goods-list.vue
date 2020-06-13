@@ -63,7 +63,6 @@
 				'type_id':option.cid,
 				'fid':option.fid == undefined?'':option.fid
 			}).then(res => {
-				console.log(res)
 				this.goodsList = res;
 			}).catch(err => {
 				console.log(444)
@@ -100,7 +99,8 @@
 		},
 		//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 		onReachBottom(){
-			uni.showToast({title: '触发上拉加载'});
+			this.loadingText="到底了";
+			return false;
 			let len = this.goodsList.length;
 			if(len>=40){
 				this.loadingText="到底了";
@@ -130,7 +130,7 @@
 			//商品跳转
 			toGoods(e){
 				console.log(e)
-				uni.showToast({title: '商品'+e.goods_id,icon:"none"});
+				// uni.showToast({title: '商品'+e.goods_id,icon:"none"});
 				uni.navigateTo({
 					url: '../goods?cid='+e.goods_id 
 				});
