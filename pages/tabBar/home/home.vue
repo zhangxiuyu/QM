@@ -127,7 +127,7 @@ export default {
 			headerTop:null,
 			statusTop:null,
 			nVueTitle:null,
-			city: '北京',
+			city: '',
 			currentSwiper: 0,
 			// 轮播图片
 			swiperList: [
@@ -281,7 +281,8 @@ export default {
 		//定位地址 
 		this.amapPlugin.getRegeo({
 			success: (data) => {
-				this.city = data[0].regeocodeData.addressComponent.province.replace(/市/g, ''); //把"市"去掉
+				var cccc = data[0].regeocodeData.addressComponent.province.replace(/市/g, ''); //把"市"去掉
+				this.city = cccc.replace(/省/g, ''); //把"市"去掉
 	
 				// 这里放到缓存里面 只在首页获取一次
 				 uni.setStorage({
