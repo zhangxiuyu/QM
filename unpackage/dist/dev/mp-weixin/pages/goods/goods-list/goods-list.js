@@ -200,8 +200,7 @@ var _default = { data: function data() {return { goodsList: [// { goods_id: 0, i
         // {text:"",selected:false,orderbyicon:false,orderby:0}
       ], orderby: "sheng" };}, onLoad: function onLoad(option) {var _this = this; //option为object类型，会序列化上个页面传递的参数
     console.log(option.cid); //打印出上个页面传递的参数。
-    uni.setNavigationBarTitle({ title: option.name });http.getGoodsList({ 'type_id': option.cid, 'fid': option.fid == undefined ? '' : option.fid }).then(function (res) {console.log(res);_this.goodsList = res;}).catch(function (err) {console.log(444);});
-
+    uni.setNavigationBarTitle({ title: option.name });http.getGoodsList({ 'type_id': option.cid, 'fid': option.fid == undefined ? '' : option.fid }).then(function (res) {_this.goodsList = res;}).catch(function (err) {console.log(444);});
 
     //兼容H5下排序栏位置
 
@@ -232,7 +231,8 @@ var _default = { data: function data() {return { goodsList: [// { goods_id: 0, i
   },
   //上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
   onReachBottom: function onReachBottom() {
-    uni.showToast({ title: '触发上拉加载' });
+    this.loadingText = "到底了";
+    return false;
     var len = this.goodsList.length;
     if (len >= 40) {
       this.loadingText = "到底了";

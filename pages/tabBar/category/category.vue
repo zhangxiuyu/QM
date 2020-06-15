@@ -51,7 +51,7 @@
 			return {
 				showCategoryIndex:0,
 				headerPosition:"fixed",
-				city:"北京",
+				city:"",
 				//分类列表
 				categoryList:[
 					// {id:1,title:'家用电器',banner:'/static/img/category/banner.jpg',list:[

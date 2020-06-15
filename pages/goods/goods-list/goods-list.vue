@@ -42,7 +42,7 @@
 					// { goods_id: 8, img: '/static/img/goods/p9.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
 					// { goods_id: 9, img: '/static/img/goods/p10.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' }
 				],
-				loadingText:"正在加载...",
+				loadingText:"到底了",
 				headerTop:"0px",
 				headerPosition:"fixed",
 				orderbyList:[
@@ -63,7 +63,6 @@
 				'type_id':option.cid,
 				'fid':option.fid == undefined?'':option.fid
 			}).then(res => {
-				console.log(res)
 				this.goodsList = res;
 			}).catch(err => {
 				console.log(444)
@@ -100,7 +99,8 @@
 		},
 		//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 		onReachBottom(){
-			uni.showToast({title: '触发上拉加载'});
+			this.loadingText="到底了";
+			return false;
 			let len = this.goodsList.length;
 			if(len>=40){
 				this.loadingText="到底了";
@@ -108,6 +108,7 @@
 			}else{
 				this.loadingText="正在加载...";
 			}
+			// 这里分页处理  
 			let end_goods_id = this.goodsList[len-1].goods_id;
 			for(let i=1;i<=10;i++){
 				let goods_id = end_goods_id+i;
@@ -130,7 +131,7 @@
 			//商品跳转
 			toGoods(e){
 				console.log(e)
-				uni.showToast({title: '商品'+e.goods_id,icon:"none"});
+				// uni.showToast({title: '商品'+e.goods_id,icon:"none"});
 				uni.navigateTo({
 					url: '../goods?cid='+e.goods_id 
 				});
