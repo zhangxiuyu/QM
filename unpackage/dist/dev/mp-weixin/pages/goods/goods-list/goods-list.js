@@ -195,7 +195,7 @@ var _default = { data: function data() {return { goodsList: [// { goods_id: 0, i
         // { goods_id: 7, img: '/static/img/goods/p8.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
         // { goods_id: 8, img: '/static/img/goods/p9.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
         // { goods_id: 9, img: '/static/img/goods/p10.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' }
-      ], loadingText: "正在加载...", headerTop: "0px", headerPosition: "fixed", orderbyList: [// {text:"热门",selected:true,orderbyicon:false,orderby:0},
+      ], loadingText: "到底了", headerTop: "0px", headerPosition: "fixed", orderbyList: [// {text:"热门",selected:true,orderbyicon:false,orderby:0},
         // {text:"价格",selected:false,orderbyicon:['sheng','jiang'],orderby:0},
         // {text:"",selected:false,orderbyicon:false,orderby:0}
       ], orderby: "sheng" };}, onLoad: function onLoad(option) {var _this = this; //option为object类型，会序列化上个页面传递的参数
@@ -240,6 +240,7 @@ var _default = { data: function data() {return { goodsList: [// { goods_id: 0, i
     } else {
       this.loadingText = "正在加载...";
     }
+    // 这里分页处理  
     var end_goods_id = this.goodsList[len - 1].goods_id;
     for (var i = 1; i <= 10; i++) {
       var goods_id = end_goods_id + i;
@@ -262,7 +263,7 @@ var _default = { data: function data() {return { goodsList: [// { goods_id: 0, i
     //商品跳转
     toGoods: function toGoods(e) {
       console.log(e);
-      uni.showToast({ title: '商品' + e.goods_id, icon: "none" });
+      // uni.showToast({title: '商品'+e.goods_id,icon:"none"});
       uni.navigateTo({
         url: '../goods?cid=' + e.goods_id });
 
