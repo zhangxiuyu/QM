@@ -468,7 +468,7 @@ export default {
 		},
 		//商品跳转
 		toGoods(e) {
-			uni.showToast({ title: '商品' + e.goods_id, icon: 'none' });
+			// uni.showToast({ title: '商品' + e.goods_id, icon: 'none' });
 			uni.navigateTo({
 				url: '../../goods/goods?cid=' + e.goods_id
 			});
