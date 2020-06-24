@@ -29,8 +29,18 @@ const getGoods = (data) =>{
 		})
 	})
 }
+const getGoodsPage = (data) =>{
+	return new Promise((resolve,reject)=>{
+		http.get('getGoodsPage',data).then(res => {
+			resolve(res)
+		}).catch(err => {
+			reject(err)
+		})
+	})
+}
 export{
 	getBanner,
 	getXiao,
-	getGoods
+	getGoods,
+	getGoodsPage,
 }

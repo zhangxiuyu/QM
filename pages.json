@@ -55,13 +55,22 @@
 					"bounce":"none"
 				}
 			}
+        },	{
+            "path" : "pages/goods/goods-list/goods-list-s",
+            "style" : {
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"bounce":"none"
+				}
+			}
         },
 		{
 		    "path" : "pages/goods/goods",
 		    "style" : {
 				"navigationBarTitleText" : "",
 				"navigationBarBackgroundColor":"#f1f1f1",
-				"onReachBottomDistance":50,
+				// "onReachBottomDistance":50,
 				"h5":{
 					"titleNView":false
 				},

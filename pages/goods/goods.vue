@@ -311,7 +311,7 @@ export default {
 	},
 	//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 	onReachBottom() {
-		uni.showToast({ title: '到底了' });
+		// uni.showToast({ title: '到底了' });
 	},
 	mounted () {
 		

@@ -19,9 +19,19 @@ const getGoodsList = (data) =>{
 		})
 	})
 }
+const getSearchGoods = (data) =>{
+	return new Promise((resolve,reject)=>{
+		http.get('getSearchGoods',data).then(res => {
+			resolve(res)
+		}).catch(err => {
+			reject(err)
+		})
+	})
+}
 
 
 export{
 	getGoodsOne,
+	getSearchGoods,
 	getGoodsList
 }

@@ -1,8 +1,5 @@
-// let baseUrl = 'http://www.lqy.com/api/'
-let baseUrl = 'https://www.ergouphp.com/api/'
-import {
-	token
-} from './globalData.js'
+let baseUrl = 'http://www.lqy.com/api/'
+// let baseUrl = 'https://www.ergouphp.com/api/'
 
 const headers = {
 	formdata: {
@@ -23,14 +20,11 @@ const http = async ({
 	data
 }) => {
 	try{
-		var tokende = token.get()
-		console.log('tokende')
-		console.log(tokende)
-		headers[headertype]['Authorization'] = await token.get()
-		// headers[headertype]['Authorization']='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hcGkueml4aW5jby5jb21cL2FwaVwvbG9naW4iLCJpYXQiOjE1ODk3ODUyNDksImV4cCI6MTU5NDk2OTI0OSwibmJmIjoxNTg5Nzg1MjQ5LCJqdGkiOiIyd0lqcUlvWURyMjhwc1BXIiwic3ViIjp7ImlkIjoxMDA2LCJwaG9uZSI6IjEzMzEzMzI3NjkxIiwicGFzc3dvcmQiOiIkMnkkMTMkY0tSYWprWEk3WVhzTjFKcUl1aHhJdTRPOWdjcWpNVWtveWUzVTRkbmtwNy5WQS5jWjNmQTYiLCJuYW1lIjoiIiwibmlja25hbWUiOiJhYiIsImNvbXBhbnkiOiIiLCJ0ZWxlcGhvbmUiOiIiLCJhZGRyZXNzIjoiIiwiZW1haWwiOiIiLCJyZW1hcmsiOiIiLCJhY2NvdW50X2lkIjo3NTksImNyZWF0ZWRfYXQiOjE1ODM4MDM0MDcsImF2YXRhciI6Imh0dHA6XC9cL2ltZ3MuNWk3MS5vcmdcL3R4LnBuZyIsInNpZ25zdGF0dXMiOiIwIiwidGFnIjoiIiwic2V4IjoiMSIsImRlc2NyaXB0aW9uIjpudWxsLCJqb2IiOm51bGwsImNvbXBhbnlmbGFnIjoiMCIsImNvbXBhbnluYW1lIjpudWxsLCJwb2ludHMiOjAsIm9wZW5pZCI6bnVsbCwicmVhc29uIjoiIiwic3RhdHVzIjoiMSJ9fQ.GeuGygeJbjgboI0gHXPm0RX7nm2pVG_iD3Ho1npUeGo'
-	}catch{
+		headers[headertype]['Authorization'] = uni.getStorageSync('token')
+	}catch(err){
 		headers[headertype]['Authorization'] = 'coco'
 	}
+
 	
 	return new Promise((resolve, reject) => {
 		if(url.includes('http')){
@@ -47,7 +41,18 @@ const http = async ({
 			} else if (res[1].data.code === 201) {
 				reject(res[1].data.message)
 			} else if (res[1].data.code === 202) {
-				uni.$emit('showlogin')
+			
+				// 这里移除 用户信息 
+				uni.removeStorage({
+				    key: 'userInfo',
+				});
+				// 这里移除 token
+				uni.removeStorage({
+				    key: 'token',
+				});
+				uni.showToast({
+					title:res[1].data.message
+				})
 				reject('登录身份失效')
 			}
 		}).catch(err => {

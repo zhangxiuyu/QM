@@ -177,31 +177,27 @@ import *as http from "@/pages/tabBar/user/api.js"
 		},
 		onReady(){
 			//此处，演示,每次页面初次渲染都把登录状态重置
-			uni.setStorage({
-				key: 'UserInfo',
-				data: false,
-				success: function () {
-				},
-				fail:function(e){
-				}
-			});
+			// uni.setStorage({
+			// 	key: 'UserInfo',
+			// 	data: false,
+			// 	success: function () {
+			// 	},
+			// 	fail:function(e){
+			// 	}
+			// });
 		},
 		onShow(){
+			const that = this;
 			uni.getStorage({
-				key: 'UserInfo',
-				success: (res)=>{
-					if(!res.data){
-						if(this.isfirst){
-							//this.toLogin();
-						}
-						return ;
+				key: 'userInfo',
+				fail:function(){
+					that.user ={
+						username:'',
+						face:''
 					}
-					this.user = res.data;
-				},
-				fail:(e)=>{
-					//this.toLogin(); 
 				}
 			});
+			
 		},
 		methods: {
 			//消息列表
@@ -291,8 +287,18 @@ import *as http from "@/pages/tabBar/user/api.js"
 											username:info.userInfo.nickName,
 											avatarUrl:info.userInfo.avatarUrl,
 										}).then(res => {
-											console.log(1111)
-											console.log()
+											
+											// 将token 写入缓存
+											uni.setStorage({
+											    key: 'token',
+											    data: res,
+											    success: function () {
+													
+											        console.log('user 写入');
+											    }
+											});
+											
+											
 										}).catch(err => {
 											console.log(3333)
 										})

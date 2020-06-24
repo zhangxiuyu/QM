@@ -148,78 +148,9 @@ export default {
 			],
 			Promotion: [],
 			//猜你喜欢列表
-			productList: [
-				// {
-				// 	goods_id: 0,
-				// 	img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 1,
-				// 	img: 'https://cbu01.alicdn.com/img/ibank/2019/826/137/11023731628_1731467748.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 2,
-				// 	img: '/static/img/goods/p3.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 3,
-				// 	img: '/static/img/goods/p4.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 4,
-				// 	img: '/static/img/goods/p5.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 5,
-				// 	img: '/static/img/goods/p6.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 6,
-				// 	img: '/static/img/goods/p7.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 7,
-				// 	img: '/static/img/goods/p8.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 8,
-				// 	img: '/static/img/goods/p9.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// },
-				// {
-				// 	goods_id: 9,
-				// 	img: '/static/img/goods/p10.jpg',
-				// 	name: '商品名称商品名称商品名称商品名称商品名称',
-				// 	price: '￥168',
-				// 	slogan: '1235人付款'
-				// }
-			],
+			productList: [],
+			page_total:1, // 总页数
+			page:1, // 当前页
 			loadingText: '正在加载...'
 		};
 	},
@@ -241,25 +172,19 @@ export default {
 		this.loadingText = '到底了';
 		return false;
 		
+		
+		
 		let len = this.productList.length;
-		if (len >= 40) {
+		if (len >= 100) {
 			this.loadingText = '到底了';
 			return false;
-		}
-		// 演示,随机加入商品,生成环境请替换为ajax请求
-		let end_goods_id = this.productList[len - 1].goods_id;
-		for (let i = 1; i <= 10; i++) {
-			let goods_id = end_goods_id + i;
-			let p = {
-				goods_id: goods_id,
-				img:
-					'/static/img/goods/p' + (goods_id % 10 == 0 ? 10 : goods_id % 10) + '.jpg',
-				name: '商品1名称商品名称商品名称商品名称商品名称',
-				price: '￥168',
-				slogan: '1235人付款'
-			};
+		}else{
+			// 总页数
+			
+		
 			this.productList.push(p);
 		}
+	
 	},
 	onLoad() {
 		
@@ -330,10 +255,25 @@ export default {
 		})
 		
 		// 商品
-		http.getGoods().then(res => {
-			res.map(x=>{
-				this.productList.push({'goods_id':x.id,'name':x.name,'img':x.img,'price':x.prices,'slogan':''});
+		// http.getGoods().then(res => {
+		// 	res.map(x=>{
+		// 		this.productList.push({'goods_id':x.id,'name':x.name,'img':x.img,'price':x.prices,'slogan':''});
+		// 	})
+		// }).catch(err => {
+		// 	console.log(444)
+		// })
+		
+		// 修改为分页数据
+		http.getGoodsPage({
+			page:1
+		}).then(res => {
+			res.lists.map(x=>{
+				this.productList.push({'goods_id':x.id,'name':x.name,'img':x.img,'price':x.prices,'slogan':x.slogan});
 			})
+			// page_total:1, // 总页数
+			// page:1, // 当前页
+			
+			this.page_total = res.total
 		}).catch(err => {
 			console.log(444)
 		})
@@ -448,7 +388,10 @@ export default {
 		},
 		//搜索跳转
 		toSearch() {
-			uni.showToast({ title: '秀秀还没开发呢，不要着急哦！' ,icon:"none"});
+			uni.navigateTo({
+				url: '../../goods/goods-list/goods-list-s'
+			});
+			// uni.showToast({ title: '秀秀还没开发呢，不要着急哦！' ,icon:"none"});
 		},
 		//轮播图跳转
 		toSwiper(e) {
