@@ -20,15 +20,6 @@ const getXiao = (data) =>{
 	})
 }
 
-const getGoods = (data) =>{
-	return new Promise((resolve,reject)=>{
-		http.get('getHomeGoods',data).then(res => {
-			resolve(res)
-		}).catch(err => {
-			reject(err)
-		})
-	})
-}
 const getGoodsPage = (data) =>{
 	return new Promise((resolve,reject)=>{
 		http.get('getGoodsPage',data).then(res => {
@@ -41,6 +32,5 @@ const getGoodsPage = (data) =>{
 export{
 	getBanner,
 	getXiao,
-	getGoods,
 	getGoodsPage,
 }

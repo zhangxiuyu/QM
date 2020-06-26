@@ -10,9 +10,9 @@ const getGoodsOne = (data) =>{
 	})
 }
 
-const getGoodsList = (data) =>{
+const getGoodsListPage = (data) =>{
 	return new Promise((resolve,reject)=>{
-		http.get('getGoodsList',data).then(res => {
+		http.get('getGoodsListPage',data).then(res => {
 			resolve(res)
 		}).catch(err => {
 			reject(err)
@@ -33,5 +33,5 @@ const getSearchGoods = (data) =>{
 export{
 	getGoodsOne,
 	getSearchGoods,
-	getGoodsList
+	getGoodsListPage
 }

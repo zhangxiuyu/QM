@@ -30,18 +30,7 @@
 	export default {
 		data() {
 			return {
-				goodsList:[
-					// { goods_id: 0, img: '/static/img/goods/p1.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 1, img: '/static/img/goods/p2.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 2, img: '/static/img/goods/p3.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 3, img: '/static/img/goods/p4.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 4, img: '/static/img/goods/p5.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 5, img: '/static/img/goods/p6.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 6, img: '/static/img/goods/p7.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 7, img: '/static/img/goods/p8.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 8, img: '/static/img/goods/p9.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' },
-					// { goods_id: 9, img: '/static/img/goods/p10.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' }
-				],
+				goodsList:[],
 				loadingText:"到底了",
 				headerTop:"0px",
 				headerPosition:"fixed",
@@ -50,7 +39,11 @@
 					// {text:"价格",selected:false,orderbyicon:['sheng','jiang'],orderby:0},
 					// {text:"",selected:false,orderbyicon:false,orderby:0}
 				],
-				orderby:"sheng"
+				orderby:"sheng",
+				page_total:1, // 总页数
+				page:1, // 当前页
+				cid:'',
+				fid:'',
 			};
 		},
 		onLoad: function (option) { //option为object类型，会序列化上个页面传递的参数
@@ -58,29 +51,19 @@
 			uni.setNavigationBarTitle({
 				title: option.name
 			});
-			
-			http.getGoodsList({
+			this.cid = option.cid;
+			this.fid = option.fid;
+			http.getGoodsListPage({
 				'type_id':option.cid,
-				'fid':option.fid == undefined?'':option.fid
+				'fid':option.fid == undefined?'':option.fid,
+				'page':1
 			}).then(res => {
-				this.goodsList = res;
+				console.log(res)
+				this.goodsList = res.lists;
+				this.page_total = res.total;
 			}).catch(err => {
 				console.log(444)
 			})
-			
-			
-			
-			//兼容H5下排序栏位置
-			// #ifdef H5
-				//定时器方式循环获取高度为止，这么写的原因是onLoad中head未必已经渲染出来。
-				let Timer = setInterval(()=>{
-					let uniHead = document.getElementsByTagName('uni-page-head');
-					if(uniHead.length>0){
-						this.headerTop = uniHead[0].offsetHeight+'px';
-						clearInterval(Timer);//清除定时器
-					}
-				},1);
-			// #endif
 		},
 		onPageScroll(e){
 			//兼容iOS端下拉时顶部漂移
@@ -99,21 +82,29 @@
 		},
 		//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 		onReachBottom(){
-			this.loadingText="到底了";
-			return false;
-			let len = this.goodsList.length;
-			if(len>=40){
-				this.loadingText="到底了";
+			console.log('触发下一页');
+			console.log(this.page);
+			this.loadingText = '加载中...';
+			// return false;
+			// 检查当前页是否是总页数的最后一页
+			if(this.page >= this.page_total){
+				this.loadingText = '到底了';
 				return false;
 			}else{
-				this.loadingText="正在加载...";
-			}
-			// 这里分页处理  
-			let end_goods_id = this.goodsList[len-1].goods_id;
-			for(let i=1;i<=10;i++){
-				let goods_id = end_goods_id+i;
-				let p = { goods_id: goods_id, img: '/static/img/goods/p'+(goods_id%10==0?10:goods_id%10)+'.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168', slogan:'1235人付款' };
-				this.goodsList.push(p);
+				this.page = this.page + 1;
+				console.log(1222);
+				console.log(this.page);
+				http.getGoodsListPage({
+					type_id:this.cid,
+					fid:this.fid == undefined?'':this.fid,
+					page:this.page
+				}).then(res => {
+					res.lists.map(x=>{
+						this.goodsList.push({'goods_id':x.id,'name':x.name,'img':x.img,'price':x.prices,'slogan':x.slogan});
+					})
+				}).catch(err => {
+					console.log(444)
+				})
 			}
 		},
 		methods:{

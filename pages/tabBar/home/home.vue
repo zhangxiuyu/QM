@@ -169,20 +169,27 @@ export default {
 	//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 	onReachBottom() {
 		// uni.showToast({ title: '触发上拉加载' });
-		this.loadingText = '到底了';
-		return false;
-		
-		
-		
-		let len = this.productList.length;
-		if (len >= 100) {
+		console.log('触发下一页');
+		console.log(this.page);
+		this.loadingText = '加载中...';
+		// return false;
+		// 检查当前页是否是总页数的最后一页
+		if(this.page >= this.page_total){
 			this.loadingText = '到底了';
 			return false;
 		}else{
-			// 总页数
-			
-		
-			this.productList.push(p);
+			this.page = this.page + 1;
+			http.getGoodsPage({
+				page:this.page
+			}).then(res => {
+				res.lists.map(x=>{
+					this.productList.push({'goods_id':x.id,'name':x.name,'img':x.img,'price':x.prices,'slogan':x.slogan});
+				})
+				console.log('total',res.total)
+				this.page_total = res.total
+			}).catch(err => {
+				console.log(444)
+			})
 		}
 	
 	},
@@ -272,7 +279,7 @@ export default {
 			})
 			// page_total:1, // 总页数
 			// page:1, // 当前页
-			
+			console.log('total',res.total)
 			this.page_total = res.total
 		}).catch(err => {
 			console.log(444)
